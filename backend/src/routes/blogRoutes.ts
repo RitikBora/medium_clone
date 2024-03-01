@@ -2,7 +2,7 @@ import { Hono } from 'hono'
 import { verify } from 'hono/jwt';
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
-import { string, z } from 'zod';
+import {createPostInput , updatePostInput} from '@ritikbora/common';
 
 
 const app = new Hono<{
@@ -45,6 +45,14 @@ app.post('/', async(c) => {
 
   const body = await c.req.json();
 
+  const {success} = createPostInput.safeParse(body);
+
+  if(!success)
+  {
+    c.status(401);
+		return c.json({ error: "invalid post body" });
+  }
+
   try
   {
     const post = await prisma.post.create({
@@ -70,6 +78,14 @@ app.put('/', async (c) => {
   }).$extends(withAccelerate())
 
   const body = await c.req.json();
+
+  const {success} = updatePostInput.safeParse(body);
+
+  if(!success)
+  {
+    c.status(401);
+		return c.json({ error: "invalid post body" });
+  }
 
   try
   {

@@ -5,6 +5,7 @@ import { withAccelerate } from '@prisma/extension-accelerate'
 import {z} from 'zod';
 import { sign  } from 'hono/jwt';
 import { env } from 'hono/adapter'
+import {signupInput , signinInput} from '@ritikbora/common'
 
 
 const app = new Hono<{
@@ -26,7 +27,7 @@ app.post('/signup', async(c) => {
 
   const body = await c.req.json();
 
-  const {success} = credentialsBody.safeParse(body);
+  const {success} = signupInput.safeParse(body);
 
   if(success)
   {
@@ -60,7 +61,7 @@ app.post('/signin', async(c) => {
 
   const body = await c.req.json();
 
-  const {success} = credentialsBody.safeParse(body);
+  const {success} = signinInput.safeParse(body);
 
   if(success)
   {
