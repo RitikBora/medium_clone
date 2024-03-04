@@ -66,7 +66,6 @@ app.post('/', async(c) => {
     return c.json({id : post.id});
   }catch(err)
   {
-    console.log(err);
     c.status(500);
 		return c.json({ error: "Error occured while adding blog" });
   }
@@ -103,7 +102,6 @@ app.put('/', async (c) => {
 
   }catch(err)
   {
-    console.log(err);
     c.status(500);
 		return c.json({ error: "Error occured while updating blog" });
   }

@@ -2,9 +2,7 @@ import { Hono } from 'hono'
 
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
-import {z} from 'zod';
 import { sign  } from 'hono/jwt';
-import { env } from 'hono/adapter'
 import {signupInput , signinInput} from '@ritikbora/common'
 
 
@@ -14,11 +12,6 @@ const app = new Hono<{
     JWT_SECRET: string
 	}
 }>();
-
-const credentialsBody = z.object({
-  email : z.string().email(),
-  password  : z.string().min(5)
-})
 
 app.post('/signup', async(c) => {
   const prisma = new PrismaClient({
@@ -74,23 +67,22 @@ app.post('/signin', async(c) => {
         }
       })
   
-      if(user)
-      {
-        const jwtToken =  await sign({id : user.id} , c.env.JWT_SECRET);
-        return c.json({token : jwtToken});
-      }else
+      if(!user)
       {
         c.status(401);
-        c.json({error : "Invalid credentials or user not found"});
+        return c.json({error : "Invalid credentials"});
       }
+     
+        const jwtToken =  await sign({id : user.id} , c.env.JWT_SECRET);
+        return c.json({token : jwtToken});
     }catch(err)
     {
       c.status(403);
-      return c.json({ error: "error while signing in" });
+      return c.json({ error: "Error while signing in" });
     }
   }
   c.status(403);
-	return c.json({ error: "error while signing in" });
+	return c.json({ error: "Error while signing in" });
 })
 
 
