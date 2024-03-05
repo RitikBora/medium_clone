@@ -23,7 +23,7 @@ const SignupForm = () =>
             
             const token = response.data.token;
                 localStorage.setItem('token' , token);
-                navigate('/blog');
+                navigate('/blogs');
 
         }catch(err : any)
         {
