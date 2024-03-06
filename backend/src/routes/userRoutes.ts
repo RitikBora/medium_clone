@@ -28,6 +28,7 @@ app.post('/signup', async(c) => {
     {
        const user = await prisma.user.create({data :
         {
+          name: body.name,
           email : body.email,
           password : body.password
         }});
@@ -38,6 +39,7 @@ app.post('/signup', async(c) => {
     }catch(err)
     {
       c.status(403);
+      console.log(err);
 		  return c.json({ error: "error while signing up" });
     }
   }
