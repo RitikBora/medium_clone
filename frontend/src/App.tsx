@@ -5,10 +5,13 @@ import Signup from './routes/Signup';
 import Signin from './routes/Signin';
 import Blog from './routes/Blog';
 import Blogs from './routes/Blogs';
+
+import Appbar from './components/Appbar.tsx'
 function App() {
 
   return (
     <Router>
+      <Appbar/>
       <Routes>
         <Route path="/signup"  element={<Signup/>} />
           <Route path="/signin" element={<Signin/>} />

@@ -39,7 +39,6 @@ app.post('/signup', async(c) => {
     }catch(err)
     {
       c.status(403);
-      console.log(err);
 		  return c.json({ error: "error while signing up" });
     }
   }

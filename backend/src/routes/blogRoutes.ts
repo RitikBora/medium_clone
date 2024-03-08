@@ -127,7 +127,6 @@ app.get("/all" , async (c) =>
           }
         }
       });
-      console.log(posts);
       return c.json({posts : posts});
     }catch(err)
     {
