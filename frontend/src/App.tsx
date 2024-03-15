@@ -7,6 +7,7 @@ import Blog from './routes/Blog';
 import Blogs from './routes/Blogs';
 
 import Appbar from './components/Appbar.tsx'
+import Create from './routes/Create.tsx';
 function App() {
 
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/signin" element={<Signin/>} />
           <Route path="/blog/*" element={<Blog/>} />
           <Route path="/blogs" element={<Blogs/>} />
+          <Route path="/create" element= {<Create/>}/>
       </Routes>
        
     </Router>

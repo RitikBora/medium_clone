@@ -1,5 +1,6 @@
 
 import BlogCard from "../components/BlogCard"
+import Skeleton from "../components/Skeleton";
 
 import { useBlogs } from "../hooks";
 
@@ -10,7 +11,11 @@ const Blogs = () =>
 
     if(loading)
     {
-        return <div className="flex justify-center">Loading ...</div>
+        return <>
+            <div className="flex justify-center  py-10">
+            <Skeleton/>    
+        </div>
+        </>
     }
     return(<>
        <div className="flex justify-center  py-10">
@@ -18,7 +23,7 @@ const Blogs = () =>
                 {
                     blogs.map((blog)  =>
                     {
-                       return <BlogCard key={blog.id} id={blog.id} authorName={blog.author.name} title={blog.title} content={blog.content} date="24 02 2000"/>
+                       return <BlogCard key={blog.id} id={blog.id} authorName={blog.author.name} title={blog.title} content={blog.content} date={blog.timestamp}/>
                     })
                 }
             </div>

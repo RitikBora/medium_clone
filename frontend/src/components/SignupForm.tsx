@@ -61,8 +61,9 @@ const SignupForm = () =>
                 }}/>
                 <button className="w-full bg-black text-white border rounded-md px-2 py-2 my-2" onClick={sendRequest}>Signup</button>
             </div>
+            <ToastContainer/>
           </div>
-          <ToastContainer/>
+          
     </>)
 }
 

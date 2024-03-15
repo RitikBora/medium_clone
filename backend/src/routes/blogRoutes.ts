@@ -18,7 +18,6 @@ const app = new Hono<{
 app.use('/*', async (c, next) => {
 
   const jwt = c.req.header('Authorization');
-  
   if(!jwt)
   {
     c.status(401);
@@ -45,6 +44,7 @@ app.post('/', async(c) => {
 
   const body = await c.req.json();
 
+  console.log(body);
   const {success} = createPostInput.safeParse(body);
 
   if(!success)
@@ -53,13 +53,17 @@ app.post('/', async(c) => {
 		return c.json({ error: "invalid post body" });
   }
 
+  const currentDate = new Date();
+  const currentDateTimeString = currentDate.toLocaleString()
+
   try
   {
     const post = await prisma.post.create({
       data : {
         title : body.title,
         content: body.content,
-        authorId : c.get('userId')
+        authorId : c.get('userId'),
+        timestamp: currentDateTimeString
       }
     })
     c.status(200);
@@ -120,6 +124,7 @@ app.get("/all" , async (c) =>
           id: true,
           title: true,
           content : true,
+          timestamp : true,
           author :{
             select: {
               name : true
@@ -154,6 +159,7 @@ app.get("/:id" , async (c) =>
           title : true,
           content : true,
           id : true,
+          timestamp: true,
           author :{
             select: {
               name : true

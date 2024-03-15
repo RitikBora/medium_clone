@@ -5,6 +5,7 @@ type Blog = {
     title : string,
     content : string,
     id : string,
+    timestamp : string
     author : {
         name : string
     }
