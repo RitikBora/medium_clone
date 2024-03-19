@@ -11,7 +11,7 @@ import Create from './routes/Create.tsx';
 function App() {
 
   return (
-    <Router>
+    <Router basename='/medium'>
       <Appbar/>
       <Routes>
         <Route path="/signup"  element={<Signup/>} />
