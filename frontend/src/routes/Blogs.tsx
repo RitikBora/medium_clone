@@ -4,10 +4,12 @@ import Skeleton from "../components/Skeleton";
 
 import { useBlogs } from "../hooks";
 
-
-const Blogs = () =>
+type BlogsType =  {
+    type : "myBlogs" | "all"
+}
+const Blogs = ({type} : BlogsType) =>
 {
-    const {loading , blogs} = useBlogs();
+    const {loading , blogs} = useBlogs(type);
 
     if(loading)
     {

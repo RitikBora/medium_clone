@@ -11,7 +11,7 @@ type Blog = {
     }
 }
 
-export const useBlogs= () =>
+export const useBlogs= (type : "myBlogs" | "all") =>
 {
     const [loading , setLoading] = useState(true);
     const [blogs , setBlogs] = useState<Blog[]>([]);
@@ -32,7 +32,7 @@ export const useBlogs= () =>
                 'Authorization': `Bearer ${token}`,
               };
 
-            const response = await axios.get(`${BACKEND_URL}/api/v1/blog/all` ,  { headers })  ;
+            const response = await axios.get(`${BACKEND_URL}/api/v1/blog/${type}` ,  { headers })  ;
             
             setLoading(false);
             setBlogs(response.data.posts);

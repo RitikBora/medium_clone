@@ -141,6 +141,40 @@ app.get("/all" , async (c) =>
     
 })
 
+
+app.get("/myBlogs" , async(c) =>
+{
+  const prisma = new PrismaClient({
+      datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+
+    try
+    {
+     
+      const posts = await prisma.post.findMany({
+        where : {
+          authorId : c.get('userId')
+        },
+        select:{
+          id: true,
+          title: true,
+          content : true,
+          timestamp : true,
+          author :{
+            select: {
+              name : true
+            }
+          }
+        }
+      });
+      return c.json({posts : posts});
+    }catch(err)
+    {
+      c.status(500);
+      return c.json({ error: "Error occured while fetching blogs" });
+    }
+})
+
 app.get("/:id" , async (c) =>
 {
     const prisma = new PrismaClient({

@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Avatar = ({name , size} : {name : string , size: "small" | "big"}) =>
 {
     const nameDetails = name.split(" ");
     const initials = nameDetails[0][0].toUpperCase();
     const [isDropdownOpen, setDropdownOpen] = useState(false);
+    const navigate = useNavigate();
 
     const toggleDropdown = () =>
     {
@@ -34,7 +36,10 @@ const Avatar = ({name , size} : {name : string , size: "small" | "big"}) =>
                         </li>
                         <div className="border-b-2 border-slate-200"></div>
                         <li className="pt-2">
-                            <a  className="block  text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white font-bold cursor-pointer" onClick={() => {}} >My Blogs</a>
+                            <a  className="block  text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white font-bold cursor-pointer" onClick={() =>
+                            {
+                                navigate("/myblogs");
+                            }} >My Blogs</a>
                         </li>
                     </ul>
                 </div>
