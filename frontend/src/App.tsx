@@ -9,6 +9,7 @@ import Blogs from './routes/Blogs';
 import Appbar from './components/Appbar.tsx'
 import Create from './routes/Create.tsx';
 import { Landing } from './routes/Landing.tsx';
+import { PrivateRoute } from './routes/ProtectedRoute.tsx';
 function App() {
 
   return (
@@ -18,9 +19,9 @@ function App() {
           <Route path='/' element={<Landing/>} />
           <Route path="/signup"  element={<Signup/>} />
           <Route path="/signin" element={<Signin/>} />
-          <Route path="/blog/*" element={<Blog/>} />
-          <Route path="/blogs" element={<Blogs/>} />
-          <Route path="/create" element= {<Create/>}/>
+          <Route path="/blogs" element={ <PrivateRoute> <Blogs/> </PrivateRoute>}/>
+          <Route path="//blog/*" element={ <PrivateRoute> <Blog /> </PrivateRoute>}/>
+          <Route path="/create" element={ <PrivateRoute> <Create /> </PrivateRoute>}/>
       </Routes>
        
     </Router>
