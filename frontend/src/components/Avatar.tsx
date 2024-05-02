@@ -14,7 +14,7 @@ const Avatar = ({name , size} : {name : string , size: "small" | "big"}) =>
     const logoutUser = () =>
     {
         localStorage.removeItem("token");
-        window.location.reload();
+        window.location.href ="/";
 
     }
     return (<>

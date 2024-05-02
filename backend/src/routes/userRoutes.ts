@@ -37,18 +37,22 @@ app.post('/signup', async(c) => {
           password : body.password
         }});
 
+        const userResponse  = {
+          id : user.id,
+          name : user.name
+        }
       const jwtToken =  await sign({id : user.id} , c.env.JWT_SECRET);
 
-      return c.json({token : jwtToken});
+      return c.json({token : jwtToken , user : userResponse});
     }catch(err)
     {
       c.status(403);
-		  return c.json({ error: "error while signing up" });
+		  return c.json({ error: "Error while signing up." });
     }
   }
 
   c.status(403);
-	return c.json({ error: "error while signing up" });
+	return c.json({ error: "Please fill all inputs" });
 })
 
 app.post('/signin', async(c) => {
@@ -69,6 +73,10 @@ app.post('/signin', async(c) => {
         where: {
           email : body.email,
           password : body.password
+        },
+        select : {
+          id: true,
+          name : true
         }
       })
   
@@ -79,7 +87,7 @@ app.post('/signin', async(c) => {
       }
      
         const jwtToken =  await sign({id : user.id} , c.env.JWT_SECRET);
-        return c.json({token : jwtToken});
+        return c.json({token : jwtToken , user : user});
     }catch(err)
     {
       c.status(403);

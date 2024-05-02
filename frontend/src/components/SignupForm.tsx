@@ -5,10 +5,14 @@ import { Link  , useNavigate} from "react-router-dom";
 import axios from "axios";
 import {BACKEND_URL} from '../../config'
 import {ToastContainer, toast } from 'react-toastify'
+import { useSetRecoilState } from "recoil";
+import { userAtom } from "../recoil/atoms/UserAtom";
 
 const SignupForm = () =>
 {
     const navigate = useNavigate();
+
+    const setUser = useSetRecoilState(userAtom);
 
     const [signupInputs , setSignupInputs] = useState<SignupType>({
         email : "",
@@ -23,6 +27,7 @@ const SignupForm = () =>
             
             const token = response.data.token;
                 localStorage.setItem('token' , token);
+                 setUser({isLoading: false , name : response.data.user.name});
                 navigate('/blogs');
 
         }catch(err : any)

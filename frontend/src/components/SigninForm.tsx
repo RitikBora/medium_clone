@@ -6,6 +6,8 @@ import axios from "axios";
 import { BACKEND_URL } from "../../config";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useSetRecoilState } from "recoil";
+import { userAtom } from "../recoil/atoms/UserAtom";
 
 const SigninForm = () =>
 {
@@ -13,6 +15,8 @@ const SigninForm = () =>
         email : "",
         password: ""    
     });
+
+    const setUser = useSetRecoilState(userAtom);
 
     const navigate = useNavigate();
 
@@ -23,6 +27,7 @@ const SigninForm = () =>
 
             const token = response.data.token;
                 localStorage.setItem('token' , token);
+                setUser({isLoading: false , name : response.data.user.name});
                 navigate('/blogs');
         }catch(err : any)
         {
