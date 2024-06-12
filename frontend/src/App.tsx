@@ -14,7 +14,7 @@ import { MyBlogs } from './routes/MyBlogs.tsx';
 function App() {
 
   return (
-    <Router basename='/medium'>
+    <Router>
       <Appbar/>
       <Routes>
           <Route path='/' element={<Landing/>} />
